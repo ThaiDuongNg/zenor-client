@@ -1,0 +1,30 @@
+@import 'styles/_variables.scss';
+
+.footerContainer {
+    position: relative;
+    background-color: white;
+    color: $primaryDark2Color;
+    padding: 10px;
+
+    .footer__contact{
+        color: $primaryDark2Color;
+        display: flex;
+
+        .footer__contactLeft {
+            width: 40%;
+            color: $primaryDark2Color;
+            display: flex;
+        }
+        .footer__contactRight {
+            width: 60%;
+            color: $primaryDark2Color;
+        }
+    }
+
+    .footer__copyright {
+        display: flex;
+        justify-content: center;
+        
+    }
+}
+

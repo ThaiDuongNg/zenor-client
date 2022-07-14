@@ -1,0 +1,15 @@
+@import 'styles/_variables.scss';
+
+.custom_input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.span_error {
+  display: block;
+  margin: 1px;
+  color: $warningColor;
+  transition: .4s;
+}

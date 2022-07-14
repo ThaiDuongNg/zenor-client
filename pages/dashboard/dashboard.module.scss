@@ -1,0 +1,18 @@
+@import 'styles/_variables.scss';
+
+.dashboard {
+  // width: 100%;
+  // height: calc(100vh - #{$header-padding-top});
+  align-items: center;
+  justify-content: center;
+
+  // min-height: calc(100vh - #{$header-padding-top});
+  // padding-top: $header-padding-top;
+
+
+  .track_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

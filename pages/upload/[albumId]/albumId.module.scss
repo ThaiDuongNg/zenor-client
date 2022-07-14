@@ -1,0 +1,32 @@
+@import 'styles/_variables.scss';
+
+.track {
+  width: 100vw;
+  // height: calc(100vh - #{$header-padding-top});
+  align-items: center;
+  justify-content: center;
+
+  .track_title {
+    display: flex;
+    flex: 1;
+  }
+
+  .track_title_img {
+    width: 30%;
+  }
+
+  .track_title_content {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .track_add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+  }
+}

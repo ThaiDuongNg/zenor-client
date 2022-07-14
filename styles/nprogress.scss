@@ -1,0 +1,12 @@
+#nprogress {
+  position: fixed;
+  top: 0;
+  .bar {
+    height: 10px;
+    background: black;
+  }
+
+  .spinner {
+    display: none;
+  }
+}

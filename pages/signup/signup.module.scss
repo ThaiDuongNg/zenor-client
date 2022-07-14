@@ -1,0 +1,22 @@
+.signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 90vh;
+
+  .signup_input {
+    // margin: 10px;
+  }
+
+  .signup_radio {
+    margin: 10px;
+  }
+
+  .signup_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

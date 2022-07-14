@@ -1,0 +1,8 @@
+@import 'styles/_variables.scss';
+
+.span_error {
+  display: block;
+  margin: 1px;
+  color: $warningColor;
+  transition: .4s;
+}

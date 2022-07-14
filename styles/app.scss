@@ -1,0 +1,9 @@
+
+$primary: #D71E2B;
+
+.btn-primary {
+  color: $primary;
+  font-weight: bold;    
+}
+
+@import '~bootstrap/scss/bootstrap';

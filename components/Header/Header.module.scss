@@ -1,0 +1,79 @@
+@import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: white;
+    color: $primaryDark2Color;
+    transition: .5s;
+    z-index: 1000;
+
+
+
+    // @include mobile {
+    //     .menu {
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //     }
+
+    //     .menuDesktop {
+    //         display: none;
+    //     }
+    // }
+}
+
+.container_header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    height: 3rem;
+}
+
+.menuDesktop {
+    display: none;
+}
+
+@include xlMinBreakPoint { 
+    
+    .menu {
+        display: none;
+    }
+
+    .menuDesktop {
+        display: flex;
+        align-items: center;
+    }
+
+    .img {
+        height: 5rem;
+    }
+}
+
+.isScrolled {
+    background-color: white !important;
+    color: $primaryDark2Color !important;
+
+    .nav {
+        // color: $primaryDark2Color !important;
+    }
+
+    .nav_category_item {
+        color: $primaryDark2Color !important;
+        transition: .5s;
+    }
+}
