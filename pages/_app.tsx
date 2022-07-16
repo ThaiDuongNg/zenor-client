@@ -14,6 +14,7 @@ import "slick-carousel/slick/slick.css";
 import "styles/nprogress.scss";
 import "../styles/app.scss";
 import "../styles/_global.scss";
+import "../styles/globals.css";
 
 config.autoAddCss = false;
 

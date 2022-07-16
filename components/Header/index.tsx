@@ -10,6 +10,7 @@ import authServices from "../../services/authServices";
 import { authActions } from "../../redux/creators/modules/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "components/Sidebar";
 
 interface ICateItem {
   id: number;
@@ -24,6 +25,8 @@ const Header: React.FC = (props) => {
   const router = useRouter();
   const { dispatch } = useSagaCreators();
   const isHome = router.asPath === "/";
+
+  const [isOpenSidebar, setOpenSidebar] = useState<boolean>(true);
 
   //! UseEffect
   useEffect(() => {
@@ -79,6 +82,10 @@ const Header: React.FC = (props) => {
     return;
   };
 
+  const switchSidebarStattus = () => {
+    setOpenSidebar(!isOpenSidebar);
+  };
+
   //! Render
   return (
     <header>
@@ -104,10 +111,14 @@ const Header: React.FC = (props) => {
             </Link>
 
             <div className={styles.menu}>
-              <FontAwesomeIcon
-                icon={faBars}
-                style={{ fontSize: 20, cursor: "pointer" }}
-              />
+              <div onClick={switchSidebarStattus}>
+                <FontAwesomeIcon
+                  icon={faBars}
+                  style={{ fontSize: 20, cursor: "pointer" }}
+                />
+              </div>
+
+              {isOpenSidebar ? <Sidebar /> : null}
             </div>
 
             <div className={styles.menuDesktop}>

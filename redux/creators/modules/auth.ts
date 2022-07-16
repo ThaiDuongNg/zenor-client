@@ -12,40 +12,44 @@ export const authActions = {
   login: "login",
   loginSuccess: "loginSuccess",
   loginFailed: "loginFailed",
-  logout: 'logout',
+  logout: "logout",
 
-  isCheckAuth: 'isCheckAuth',
-  isCheckAuthSuccess: 'isCheckAuthSuccess'
+  isCheckAuth: "isCheckAuth",
+  isCheckAuthSuccess: "isCheckAuthSuccess",
 };
 
 //! Sagas
 export const authSaga = {
   [authActions.login]: {
-    saga: function* ({ payload}) {
-      const {username, password, callbacks} = payload;
+    saga: function* ({ payload }) {
+      const { username, password, callbacks } = payload;
 
       try {
-        const response:any = yield* call(authServices.login,username, password);
+        const response: any = yield* call(
+          authServices.login,
+          username,
+          password
+        );
 
-        if(response?.status === 200 && response?.data) {
-          const {token} = response?.data?.data;
-          httpMethod.attachTokenToHeader(token)
+        if (response?.status === 200 && response?.data) {
+          const { token } = response?.data?.data;
+          httpMethod.attachTokenToHeader(token);
 
-          const profileReq:any = yield* call(authServices.getProfile);
-          
-          if(profileReq.data) {
-            const user = {...profileReq.data, token};
+          const profileReq: any = yield* call(authServices.getProfile);
+
+          if (profileReq.data) {
+            const user = { ...profileReq.data, token };
             authServices.saveUserToStorage(user);
             callbacks?.onSuccess && callbacks.onSuccess(user);
             yield put({
               type: authActions.loginSuccess,
-              payload:{
-                user
-              } 
+              payload: {
+                user,
+              },
             });
             return;
           }
-          
+
           callbacks?.onFailed && callbacks.onFailed(response);
           yield put({
             type: authActions.loginFailed,
@@ -72,14 +76,14 @@ export const authSaga = {
   [authActions.isCheckAuth]: {
     saga: function* () {
       const user = authServices.getUserInStorage();
-      if(user) {
+      if (user) {
         yield put({
           type: authActions.loginSuccess,
-          payload:{
-            user
-          } 
+          payload: {
+            user,
+          },
         });
-      }else{
+      } else {
         yield put({
           type: authActions.loginFailed,
         });
@@ -89,7 +93,7 @@ export const authSaga = {
         type: authActions.isCheckAuthSuccess,
       });
     },
-  }
+  },
 } as SagaCreator;
 
 //! Reducers
@@ -99,7 +103,7 @@ export const authReducer = (
       isCheckAuth: true,
       isLogged: false,
       error: null,
-      user: {}
+      user: {},
     },
   },
   action: ReducerInterface
