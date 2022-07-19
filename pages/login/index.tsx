@@ -17,9 +17,13 @@ interface ILogin {
 }
 
 const initValues: ILogin = {
-  username: "abc1@email.com",
-  password: "12345678",
+  username: "",
+  password: "",
 };
+// const initValues: ILogin = {
+//   username: "abc1@email.com",
+//   password: "12345678",
+// };
 
 const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -61,7 +65,7 @@ const Login: React.FC = () => {
               <Head>
                 <title>Đăng nhập</title>
               </Head>
-              <Form>
+              <Form className=" tw-w-64 ">
                 <h1 className="h3 mb-3 fw-normal">Đăng nhập</h1>
                 <Field
                   label="Tài khoản"
@@ -78,7 +82,10 @@ const Login: React.FC = () => {
                   placeholder="Password"
                 />
 
-                <button type="submit" className="btn btn-primary w-100">
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100  tw-py-2 tw-rounded-sm"
+                >
                   Đăng nhập
                 </button>
 

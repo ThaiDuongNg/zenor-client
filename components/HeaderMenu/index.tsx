@@ -12,7 +12,7 @@ interface ICateItem {
   href: string;
 }
 
-export default function Sidebar() {
+export default function HeaderMenu() {
   const userSelector = GetUserSelector();
   const router = useRouter();
 
@@ -24,7 +24,7 @@ export default function Sidebar() {
     return (
       <li key={id} className="nav-item m-0">
         <Link href={href} passHref>
-          <a className={`nav-link text-dark`}>
+          <a className="nav-link text-dark tw-hover:tw-text-red-700">
             <span>
               {router.pathname === href ? (
                 <strong className="text-primary">{name}</strong>
@@ -40,7 +40,7 @@ export default function Sidebar() {
 
   const renderListCate = (list: ICateItem[]) => {
     return (
-      <ul className="">
+      <ul className="tw-z-[999] tw-absolute tw-w-72 tw-right-3 tw-mt-4 tw-bg-white tw-shadow-md tw-rounded-md">
         {list.map((item) => renderItemCate(item))}
         {isLogged && (
           <li className="nav-item m-0">

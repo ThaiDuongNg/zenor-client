@@ -53,13 +53,19 @@ const Dropdown = ({ name, onChange, defaultImage, field, form }: Props) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: { "image/*": [] },
+    accept: {
+      "image/jpeg": [".jpeg", ".png", "jpg"],
+    },
     maxFiles: 1,
   });
 
   return (
     <>
-      <PopoverWrap isShow={isShow} label={"test"} content={"contentTooltip"}>
+      <PopoverWrap
+        isShow={isShow}
+        label={"Ảnh cover tác phẩm"}
+        content={"Click để chọn ảnh cover"}
+      >
         <div
           id="dropzone"
           {...getRootProps({ className: "dropzone" })}
@@ -73,10 +79,7 @@ const Dropdown = ({ name, onChange, defaultImage, field, form }: Props) => {
         >
           <input {...getInputProps()} />
           {imgBase64 || defaultImage ? (
-            <img
-              src={imgBase64 || defaultImage}
-              style={{ width: "100%", height: "300px" }}
-            />
+            <img src={imgBase64 || defaultImage} className="w-full " />
           ) : (
             <p>Kéo thả hoặc chọn ảnh bìa</p>
           )}

@@ -1,4 +1,4 @@
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CheckBoxTrueFalse from "components/CheckBoxTrueFalse";
 import DatePicker from "components/DatePicker";
@@ -16,6 +16,8 @@ import { IAlbum } from "../../../interfaces";
 import musicServices from "../../../services/musicServices";
 import styles from "./Album.module.scss";
 import { coverImages } from "constants/common";
+
+import * as Yup from "yup";
 
 interface Props {
   nextStep: () => void;
@@ -36,7 +38,7 @@ const initValues = {
   format: "",
   genre_id: "",
   has_explicit_content: false,
-  label: "",
+  label: "ZENOR Music",
   distribution_platform: "",
   // isAlbumCover: true,
   coverOption: "",
@@ -44,15 +46,15 @@ const initValues = {
 
 const optionsCover = [
   {
-    label: "Upload ảnh bìa",
+    label: "Upload ảnh cover",
     value: "0",
   },
   {
-    label: "Mẫu ảnh bìa theme sáng",
+    label: "Mẫu ảnh cover theme sáng",
     value: "1",
   },
   {
-    label: "Mẫu ảnh bìa theme tối",
+    label: "Mẫu ảnh cover theme tối",
     value: "2",
   },
 ];
@@ -108,6 +110,8 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
   };
 
   const uploadURL = async (values: FormikValues) => {
+    console.log("values: ", values);
+
     if (values.coverOption !== "0") {
       handleSubmit(values);
       return;
@@ -163,10 +167,8 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 component={Select}
                 options={optionsCover}
                 name="coverOption"
-                label="Ảnh bìa tác phẩm"
-                contentTooltip={
-                  "Redo the last action you undid: Choose Edit > Redo, or press Command-Shift-Z."
-                }
+                label="Ảnh cover tác phẩm"
+                contentTooltip={""}
                 onChange={(item: any) => {
                   setFieldValue("coverOption", item.value);
 
@@ -188,9 +190,7 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 component={InputField}
                 name="title"
                 label="Tên tác phẩm"
-                contentTooltip={
-                  "Redo the last action you undid: Choose Edit > Redo, or press Command-Shift-Z."
-                }
+                contentTooltip={"Không được chứa các ký tự đặc biệt."}
               />
               <FieldArray name="artists">
                 {({ insert, remove, push }) => (
@@ -214,9 +214,7 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                                 label="Tên Nghệ sĩ/Nhóm hiển thị tại tác phẩm"
                                 arrrayName="artists"
                                 index={index}
-                                isActiveSelect={
-                                  values.artists.length - 1 === index
-                                }
+                                isActiveSelect={values.artists.length === index}
                               />
                             </div>
                             <div
@@ -233,7 +231,10 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                                   remove(index);
                                 }}
                               >
-                                X
+                                <FontAwesomeIcon
+                                  icon={faRemove}
+                                  style={{ fontSize: 20, cursor: "pointer" }}
+                                />
                               </div>
                             </div>
                           </div>
@@ -287,7 +288,7 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 component={Select}
                 options={optionPlatform}
                 name="distribution_platform"
-                label="Nền tảng phân phối"
+                label="Nhóm nền tảng phân phối"
                 contentTooltip={
                   "Redo the last action you undid: Choose Edit > Redo, or press Command-Shift-Z."
                 }
@@ -303,7 +304,9 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
               />
 
               <div style={{ display: "flex" }} className="my-3">
-                <label style={{ marginRight: 10 }}>Có Nội dung nhạy cảm?</label>
+                <label style={{ marginRight: 10 }} className="my-1">
+                  Có Nội dung nhạy cảm?
+                </label>
                 <CheckBoxTrueFalse
                   refFormik={refFormik}
                   nameField={"has_explicit_content"}

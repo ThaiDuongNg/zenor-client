@@ -6,6 +6,13 @@ export const validationSchema = () => {
   const stringRequired = Yup.string()
     .nullable()
     .required(`Đây là trường bắt buộc`);
+
+  const specialCharIgnore = Yup.string()
+    .required(`Đây là trường bắt buộc`)
+    .matches(
+      /^[^*|\":<>[\]{}`\\()';@&$\+\-\=\#\!\%\^\~]+$/,
+      `Không được chứa kí tự đặc biệt`
+    );
   const confirm_password = Yup.string()
     .nullable()
     .required(`Đây là trường bắt buộc`)
@@ -74,13 +81,14 @@ export const validationSchema = () => {
   });
 
   const validateAlbum = Yup.object().shape({
-    title: stringRequired,
+    title: specialCharIgnore,
     artists: Yup.array().of(
       Yup.object().shape({
         name: stringRequired,
       })
     ),
     release_time: dateRequired,
+    label: specialCharIgnore,
     format: stringRequired,
     genre_id: stringRequired,
     distribution_platform: stringRequired,

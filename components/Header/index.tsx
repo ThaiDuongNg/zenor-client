@@ -10,7 +10,8 @@ import authServices from "../../services/authServices";
 import { authActions } from "../../redux/creators/modules/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import Sidebar from "components/Sidebar";
+import HeaderMenu from "components/HeaderMenu";
+import { useClickOutside } from "hooks/useClickOutside";
 
 interface ICateItem {
   id: number;
@@ -26,7 +27,11 @@ const Header: React.FC = (props) => {
   const { dispatch } = useSagaCreators();
   const isHome = router.asPath === "/";
 
-  const [isOpenSidebar, setOpenSidebar] = useState<boolean>(true);
+  const [isOpenMenu, setOpenMenu] = useState<boolean>(false);
+
+  let domNode = useClickOutside(() => {
+    setOpenMenu(false);
+  });
 
   //! UseEffect
   useEffect(() => {
@@ -82,8 +87,8 @@ const Header: React.FC = (props) => {
     return;
   };
 
-  const switchSidebarStattus = () => {
-    setOpenSidebar(!isOpenSidebar);
+  const switchMenuStattus = () => {
+    setOpenMenu(!isOpenMenu);
   };
 
   //! Render
@@ -110,15 +115,15 @@ const Header: React.FC = (props) => {
               </a>
             </Link>
 
-            <div className={styles.menu}>
-              <div onClick={switchSidebarStattus}>
+            <div className={styles.menu} ref={domNode}>
+              <div onClick={switchMenuStattus}>
                 <FontAwesomeIcon
                   icon={faBars}
                   style={{ fontSize: 20, cursor: "pointer" }}
                 />
               </div>
 
-              {isOpenSidebar ? <Sidebar /> : null}
+              {isOpenMenu ? <HeaderMenu /> : null}
             </div>
 
             <div className={styles.menuDesktop}>

@@ -4,6 +4,8 @@ import useSagaCreators from "../hooks/useSagaCreators";
 import { authActions } from "../redux/creators/modules/auth";
 import GetUserSelector from "../redux/selector/authSelector";
 
+import Loading from "components/Loading";
+
 const withAuth = (WrappedComponent: any) => {
   return (props: any) => {
     const router = useRouter();
@@ -24,14 +26,22 @@ const withAuth = (WrappedComponent: any) => {
     }, [isCheckAuth]);
 
     if (isCheckAuth) {
-      return <div>checking auth</div>;
+      return (
+        <div>
+          <Loading />
+        </div>
+      );
     }
 
     if (isLogged || location.pathname === "/") {
       return <WrappedComponent {...props} />;
     }
 
-    return <div>null ahihih</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   };
 };
 

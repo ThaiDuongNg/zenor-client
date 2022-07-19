@@ -14,7 +14,7 @@ const index = (props: Props) => {
     <DefaultLayout title="Gửi Tác phẩm">
       <>
         <div className={styles.upload}>
-          <div className="mb-5 container d-flex flex-column justify-content-center align-items-center">
+          <div className="mb-5 container d-flex flex-column ">
             <h1 className="pt-5 pb-3">Tạo tác phẩm</h1>
             <Album
               nextStep={() => {

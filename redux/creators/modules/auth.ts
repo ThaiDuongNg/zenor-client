@@ -123,6 +123,7 @@ export const authReducer = (
 
       case authActions.isCheckAuthSuccess: {
         draftState.auth.isCheckAuth = false;
+        break;
       }
 
       default:
