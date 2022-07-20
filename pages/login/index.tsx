@@ -65,7 +65,7 @@ const Login: React.FC = () => {
               <Head>
                 <title>Đăng nhập</title>
               </Head>
-              <Form className=" tw-w-64 ">
+              <Form className=" tw-w-96 ">
                 <h1 className="h3 mb-3 fw-normal">Đăng nhập</h1>
                 <Field
                   label="Tài khoản"
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="btn btn-primary w-100  tw-py-2 tw-rounded-sm"
+                  className="btn btn-primary w-100 tw-py-2 tw-rounded-sm"
                 >
                   Đăng nhập
                 </button>
