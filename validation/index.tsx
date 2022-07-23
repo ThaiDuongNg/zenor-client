@@ -13,6 +13,11 @@ export const validationSchema = () => {
       /^[^*|\":<>[\]{}`\\()';@&$\+\-\=\#\!\%\^\~]+$/,
       `Không được chứa kí tự đặc biệt`
     );
+
+  const validatePhone = Yup.string().matches(
+    /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
+    `Vui lòng nhập số điện đúng định dạng`
+  );
   const confirm_password = Yup.string()
     .nullable()
     .required(`Đây là trường bắt buộc`)
@@ -101,10 +106,15 @@ export const validationSchema = () => {
       }),
   });
 
+  const validateFormUpdateAccount = Yup.object().shape({
+    phone: validatePhone,
+  });
+
   return {
     validateLogin,
     validateRegister,
     validateAlbum,
     validateTrack,
+    validateFormUpdateAccount,
   };
 };

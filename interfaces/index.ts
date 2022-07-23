@@ -19,95 +19,102 @@ export interface IAccount {
   password: string;
   last_name: string;
   first_name: string;
+  address?: string;
+  bio?: string;
+  phone?: string;
   type: TypeAccount;
   organization_name?: string;
   organization_id?: string;
-  avatar?: string
+  avatar?: string;
 }
 
 export interface IAlbum {
-  title: string,
-  description?:'',
-  artists: string[],
-  cover?: string,
-  released_date: Date,
-  format: string,
-  genre_id: string,
-  has_explicit_content: boolean,
-  label?: string,
-  distribution_platform: string
+  title: string;
+  description?: "";
+  artists: string[];
+  cover?: string;
+  released_date: Date;
+  format: string;
+  genre_id: string;
+  has_explicit_content: boolean;
+  label?: string;
+  distribution_platform: string;
 }
 
 export interface ITrack {
-  id?: string,
-  album_id: string,
-  title: string,
-  download_link?: string,
-  irsc?: string,
-  version_id: string,
+  id?: string;
+  album_id: string;
+  title: string;
+  download_link?: string;
+  irsc?: string;
+  version_id: string;
   artists: [
     {
-      name: string,
-      link: string
+      name: string;
+      link: string;
     }
-  ],
-  producers?: [{
-    name: string,
-    link: string
-  }],
-  composers: [{
-    name: string,
-    link: string
-  }],
-  lyricists: [{
-    name: string,
-    link: string
-  }],
+  ];
+  producers?: [
+    {
+      name: string;
+      link: string;
+    }
+  ];
+  composers: [
+    {
+      name: string;
+      link: string;
+    }
+  ];
+  lyricists: [
+    {
+      name: string;
+      link: string;
+    }
+  ];
 }
 
 export interface ISelect {
-  label: string,
-  value: string
+  label: string;
+  value: string;
 }
 
 export enum TypeAccount {
-  Personal = 'personal',
-  Smes = 'smes',
-  Corporate = 'corporate'
+  Personal = "personal",
+  Smes = "smes",
+  Corporate = "corporate",
 }
 
 export enum TypeButton {
-  Submit = 'submit',
-  Reset = 'reset',
-  Button = 'button'
+  Submit = "submit",
+  Reset = "reset",
+  Button = "button",
 }
 
 export enum TypeInput {
-  Text = 'text',
-  Password = 'password',
-  Search = 'search',
-  Number = 'number',
-  Url = 'url',
-  Time = 'time',
-  Date = 'date'
+  Text = "text",
+  Password = "password",
+  Search = "search",
+  Number = "number",
+  Url = "url",
+  Time = "time",
+  Date = "date",
 }
 
 export enum Size {
- Xs = 'xs',
- Sm = 'sm',
- Md = 'md',
- Lg = 'lg',
- Xl = 'xl'
+  Xs = "xs",
+  Sm = "sm",
+  Md = "md",
+  Lg = "lg",
+  Xl = "xl",
 }
 
 export enum Color {
-  Default = 'default',
-  Primary = 'primary',
-  Secondary = 'secondary',
-  Success = 'success',
-  Warning = 'warning',
-  Error = 'error',
-  Gradient = 'gradient'
+  Default = "default",
+  Primary = "primary",
+  Secondary = "secondary",
+  Success = "success",
+  Warning = "warning",
+  Error = "error",
+  Gradient = "gradient",
 }
-
-

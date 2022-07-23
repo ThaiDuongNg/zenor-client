@@ -10,21 +10,20 @@ class Services {
     this.axios = axios.create({
       baseURL: baseURl,
       timeout: 60000,
-      
+
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         // 'Access-Control-Allow-Origin' : '*',
       },
     });
-    // 
+    //
     //! Interceptor request
     this.axios.interceptors.request.use(
-      function (config) {
-        // console.log(config, 'config');
+      function (config: any) {
         const user = authServices.getUserInStorage();
         //attach token to header to every request
-        if(user) {
-           config.headers.Authorization = `Bearer ${user.token}`;
+        if (user) {
+          config.headers.Authorization = `Bearer ${user.token}`;
         }
 
         return config;
@@ -37,16 +36,14 @@ class Services {
     //! Interceptor response
     this.axios.interceptors.response.use(
       function (config) {
-        const newConfig:AxiosResponse<any> = cloneDeep(config);
+        const newConfig: AxiosResponse<any> = cloneDeep(config);
         // console.log(config, 'newConfig');
         newConfig.data = config?.data?.data;
         return newConfig;
       },
       function (error) {
+        console.log(error, "err");
 
-
-        console.log(error, 'err');
-        
         return Promise.reject(error);
       }
     );

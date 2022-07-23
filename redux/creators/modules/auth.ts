@@ -16,6 +16,8 @@ export const authActions = {
 
   isCheckAuth: "isCheckAuth",
   isCheckAuthSuccess: "isCheckAuthSuccess",
+  getProfile: "getProfile",
+  getProfileFailed: "getProfileFailed",
 };
 
 //! Sagas
@@ -38,7 +40,10 @@ export const authSaga = {
           const profileReq: any = yield* call(authServices.getProfile);
 
           if (profileReq.data) {
-            const user = { ...profileReq.data, token };
+            const user = {
+              ...profileReq.data,
+              token,
+            };
             authServices.saveUserToStorage(user);
             callbacks?.onSuccess && callbacks.onSuccess(user);
             yield put({
@@ -92,6 +97,27 @@ export const authSaga = {
       yield put({
         type: authActions.isCheckAuthSuccess,
       });
+    },
+  },
+  [authActions.getProfile]: {
+    saga: function* () {
+      try {
+        const user = authServices.getUserInStorage();
+        const profileRes: any = yield* call(authServices.getProfile);
+
+        if (profileRes.data) {
+          authServices.saveUserToStorage({
+            ...profileRes.data,
+            token: user.token,
+          });
+
+          return;
+        }
+      } catch (error) {
+        yield put({
+          type: authActions.getProfileFailed,
+        });
+      }
     },
   },
 } as SagaCreator;
