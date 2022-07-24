@@ -137,10 +137,10 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
 
     const style = { height: 400, width: 500 };
     if (coverOption === "1") {
-      return <img src={coverImages.white} style={style} />;
+      return <img src={coverImages.white} className="w-full" />;
     }
     if (coverOption === "2") {
-      return <img src={coverImages.black} style={style} />;
+      return <img src={coverImages.black} className="w-full" />;
     }
 
     return <Field component={Dropzone} name="cover" />;
@@ -214,7 +214,9 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                                 label="Tên Nghệ sĩ/Nhóm hiển thị tại tác phẩm"
                                 arrrayName="artists"
                                 index={index}
-                                isActiveSelect={values.artists.length === index}
+                                isActiveSelect={
+                                  values.artists.length - 1 === index
+                                }
                               />
                             </div>
                             <div
@@ -262,8 +264,9 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 name="release_time"
                 label="Ngày phát hành"
                 minDate={new Date()}
+                maxDate={new Date().setMonth(new Date().getMonth() + 1)}
                 contentTooltip={
-                  "Redo the last action you undid: Choose Edit > Redo, or press Command-Shift-Z."
+                  "Ngày phát hành không được quá ngày hiện tại một tháng."
                 }
               />
               <Field
@@ -271,36 +274,28 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 options={optionFormat}
                 name="format"
                 label="Định dạng phát hành"
-                contentTooltip={
-                  "Redo the last action you undid: Choose Edit > Redo, or press Command-Shift-Z."
-                }
+                contentTooltip={""}
               />
               <Field
                 component={Select}
                 options={optionGenre}
                 name="genre_id"
                 label="	Thể loại"
-                contentTooltip={
-                  "Redo the last action you undid: Choose Edit > Redo, or press Command-Shift-Z."
-                }
+                contentTooltip={""}
               />
               <Field
                 component={Select}
                 options={optionPlatform}
                 name="distribution_platform"
                 label="Nhóm nền tảng phân phối"
-                contentTooltip={
-                  "Redo the last action you undid: Choose Edit > Redo, or press Command-Shift-Z."
-                }
+                contentTooltip={""}
               />
               <Field
                 component={InputField}
                 name="label"
                 label="Label"
                 placeholder="ZENOR Music"
-                contentTooltip={
-                  "Redo the last action you undid: Choose Edit > Redo, or press Command-Shift-Z."
-                }
+                contentTooltip={""}
               />
 
               <div style={{ display: "flex" }} className="my-3">

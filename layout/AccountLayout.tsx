@@ -1,10 +1,10 @@
 import { faAngleLeft, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { optionAccountSeting } from "constants/common";
+import withAuth from "HOCs/withAuth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { ReactElement, useState } from "react";
-import { classNames } from "react-select/dist/declarations/src/utils";
 
 import DefaultLayout from "./DefaultLayout";
 
@@ -29,10 +29,18 @@ const AccountLayout: React.FC<DefaultLayoutI> = ({ children, title }) => {
         {/* tab here */}
         <div className="tw-max-w-2xl tw-mx-auto tw-hidden md:tw-block">
           <div className=" tw-border-b tw-border-gray-200 tw-mb-4 tw-flex tw-gap-4">
-            {optionAccountSeting.map((_) => {
+            {optionAccountSeting.map((_, idx) => {
               return (
-                <div className="tw-flex tw-flex-wrap">
-                  <p>{_.name}</p>
+                <div className="tw-flex tw-flex-wrap" key={idx}>
+                  <Link href={`/account/${_.link}`} passHref>
+                    <a className={`nav-link text-dark`}>
+                      {router.pathname === `/account/${_.link}` ? (
+                        <strong className="text-primary">{_.name}</strong>
+                      ) : (
+                        _.name
+                      )}
+                    </a>
+                  </Link>
                 </div>
               );
             })}
@@ -56,9 +64,9 @@ const AccountLayout: React.FC<DefaultLayoutI> = ({ children, title }) => {
                   />
                 </div>
                 <ul className="list-unstyled components">
-                  {optionAccountSeting.map((_) => {
+                  {optionAccountSeting.map((_, idx) => {
                     return (
-                      <li className="nav-item m-0">
+                      <li className="nav-item m-0" key={idx}>
                         <Link href={`/account/${_.link}`} passHref>
                           <a className={`nav-link text-dark`}>
                             {router.pathname === `/account/${_.link}` ? (
@@ -93,4 +101,4 @@ const AccountLayout: React.FC<DefaultLayoutI> = ({ children, title }) => {
   );
 };
 
-export default AccountLayout;
+export default withAuth(AccountLayout);

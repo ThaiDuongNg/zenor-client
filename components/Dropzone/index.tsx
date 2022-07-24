@@ -79,7 +79,7 @@ const Dropdown = ({ name, onChange, defaultImage, field, form }: Props) => {
         >
           <input {...getInputProps()} />
           {imgBase64 || defaultImage ? (
-            <img src={imgBase64 || defaultImage} className="w-full " />
+            <img src={imgBase64 || defaultImage} className="w-full" />
           ) : (
             <p>Kéo thả hoặc chọn ảnh bìa</p>
           )}

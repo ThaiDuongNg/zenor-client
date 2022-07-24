@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import withAuth from "../../HOCs/withAuth";
 
 // import styles from "./account.module.scss";
 import { Field, Form, Formik, FormikValues } from "formik";
@@ -113,4 +112,4 @@ const Profile = (props: any) => {
   );
 };
 
-export default withAuth(Profile);
+export default Profile;

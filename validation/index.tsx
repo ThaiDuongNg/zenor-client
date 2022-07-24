@@ -110,11 +110,20 @@ export const validationSchema = () => {
     phone: validatePhone,
   });
 
+  const validateChangePassword = Yup.object().shape({
+    old_password: stringRequired,
+    new_password: stringRequired,
+    confirm_new_password: Yup.string()
+      .oneOf([Yup.ref("new_password"), null], "Mật khẩu không khớp")
+      .required("Đây là trường bắt buộc"),
+  });
+
   return {
     validateLogin,
     validateRegister,
     validateAlbum,
     validateTrack,
     validateFormUpdateAccount,
+    validateChangePassword,
   };
 };

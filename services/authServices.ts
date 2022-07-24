@@ -26,6 +26,10 @@ class AuthService {
     return httpMethod.put(baseURl + auth.PROFILE, payload);
   }
 
+  changePassword(payload: any) {
+    return httpMethod.put(`${baseURl + auth.PROFILE}/security`, payload);
+  }
+
   saveUserToStorage(data?: any) {
     window.localStorage.setItem(USER_STORAGE, JSON.stringify(data));
   }

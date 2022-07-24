@@ -102,5 +102,5 @@ export const optionAccountSeting = [
   { name: "Thông tin tài khoản", link: "profile" },
   { name: "Hội viên ZENOR", link: "plus" },
   { name: "Gói tài khoản", link: "plans" },
-  { name: "Thiết lập chung", link: "setsing" },
+  { name: "Thiết lập chung", link: "settings" },
 ];
