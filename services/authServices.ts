@@ -27,7 +27,7 @@ class AuthService {
   }
 
   changePassword(payload: any) {
-    return httpMethod.put(`${baseURl + auth.PROFILE}/security`, payload);
+    return httpMethod.put(`${baseURl + auth.PROFILE}/secure`, payload);
   }
 
   saveUserToStorage(data?: any) {

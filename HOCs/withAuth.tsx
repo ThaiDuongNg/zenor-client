@@ -10,7 +10,6 @@ const withAuth = (WrappedComponent: any) => {
   return (props: any) => {
     const router = useRouter();
     const userSelector = GetUserSelector();
-    console.log("userSelector: ", userSelector);
 
     const { isCheckAuth, isLogged } = userSelector;
     const { dispatch } = useSagaCreators();

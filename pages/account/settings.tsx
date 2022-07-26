@@ -32,7 +32,9 @@ const Settings = (props: any) => {
 
       toast.success("Cập nhật thành công!");
     } catch (err: any) {
-      toast.error("Cập nhật mật khẩu thất bại, vui lòng thử lại!");
+      console.log("err: ", err.response.data);
+
+      toast.error(err.response.data.log);
     }
   };
 

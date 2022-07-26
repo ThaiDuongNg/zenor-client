@@ -79,9 +79,9 @@ const index = (props: Props) => {
     getVersion();
   }, []);
 
-  useEffect(() => {
-    console.log(dataTrack, "dataTrack");
-  }, [dataTrack]);
+  // useEffect(() => {
+  //   console.log(dataTrack, "dataTrack");
+  // }, [dataTrack]);
 
   //! Functions
   const renderHeader = () => (

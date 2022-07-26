@@ -7,6 +7,11 @@ export const validationSchema = () => {
     .nullable()
     .required(`Đây là trường bắt buộc`);
 
+  const validatePassword = Yup.string()
+    .min(8, "Mật khẩu phải chứa ít nhất 8 ký tự")
+    .nullable()
+    .required(`Đây là trường bắt buộc`);
+
   const specialCharIgnore = Yup.string()
     .required(`Đây là trường bắt buộc`)
     .matches(
@@ -64,24 +69,29 @@ export const validationSchema = () => {
     version_id: stringRequired,
     download_link: stringRequired,
     artists: Yup.array().of(
-      Yup.object().shape({
+      Yup.object({
         name: stringRequired,
       })
     ),
     composers: Yup.array().of(
-      Yup.object().shape({
+      Yup.object({
         name: stringRequired,
       })
     ),
     lyricists: Yup.array().of(
-      Yup.object().shape({
+      Yup.object({
         name: stringRequired,
       })
     ),
     producers: Yup.array().of(
-      Yup.object().shape({
+      Yup.object({
         name: stringRequired,
       })
+    ),
+
+    irsc: Yup.string().matches(
+      /^[^*|\":<>[\]{}`\\()';@&$\+\-\=\#\!\%\^\~]+$/,
+      `Không được chứa kí tự đặc biệt`
     ),
   });
 
@@ -111,10 +121,10 @@ export const validationSchema = () => {
   });
 
   const validateChangePassword = Yup.object().shape({
-    old_password: stringRequired,
-    new_password: stringRequired,
+    old_password: validatePassword,
+    new_password: validatePassword,
     confirm_new_password: Yup.string()
-      .oneOf([Yup.ref("new_password"), null], "Mật khẩu không khớp")
+      .oneOf([Yup.ref("new_password"), null], "Mật khẩu không trùng")
       .required("Đây là trường bắt buộc"),
   });
 

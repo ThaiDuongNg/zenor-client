@@ -92,6 +92,46 @@ export const optionFormat = [
   },
 ];
 
+export const optionVersion = [
+  { label: "Original", value: "original" },
+  {
+    label: "Remix",
+    value: "remix",
+  },
+  {
+    label: "Beat Version",
+    value: "beat-version",
+  },
+  {
+    label: "Extended Version",
+    value: "extended-version",
+  },
+  {
+    label: "Stripped Version",
+    value: "stripped-version",
+  },
+  {
+    label: "Lofi Version",
+    value: "lofi-version",
+  },
+  {
+    label: "Remastered",
+    value: "remastered",
+  },
+  {
+    label: "Clean Version",
+    value: "clean-version",
+  },
+  {
+    label: "Explicit Version",
+    value: "explicit-version",
+  },
+  {
+    label: "Deluxe Version",
+    value: "deluxe-version",
+  },
+];
+
 export const optionPlatform = [
   { label: "All", value: "all" },
   { label: "Copyright-friendly", value: "copyright-friendly" },

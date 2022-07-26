@@ -35,7 +35,7 @@ class Services {
 
     //! Interceptor response
     this.axios.interceptors.response.use(
-      function (config) {
+      function (config: any) {
         const newConfig: AxiosResponse<any> = cloneDeep(config);
         // console.log(config, 'newConfig');
         newConfig.data = config?.data?.data;

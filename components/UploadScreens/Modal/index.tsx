@@ -1,4 +1,4 @@
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal, Text } from "@nextui-org/react";
 import InputField from "components/InputField";
@@ -57,33 +57,44 @@ const fieldArrays = [
     name: "download_link",
     label: "Điền Liên kết có thể tải xuống Bản ghi",
     type: "input",
-    content: "tooltip",
+    content:
+      "Link có thể tải xuống sau khi upload (Google Drive, Mega, Dropbox,...)",
   },
-  { name: "title", label: "Tên Bản ghi", type: "input", content: "tooltip" },
+  {
+    name: "title",
+    label: "Tên Bản ghi",
+    type: "input",
+    content: "Không chứa ký tự đặc biệt",
+  },
   {
     name: "version_id",
     label: "Tên Version",
     type: "select",
-    content: "tooltip",
+    // content: "tooltip",
   },
-  { name: "irsc", label: "Mã ISRC", type: "input", content: "tooltip" },
+  {
+    name: "irsc",
+    label: "Mã ISRC (Nếu có)",
+    type: "input",
+    // content: "tooltip",
+  },
   {
     name: "producers",
     label: "Tên (các) Producer/Mixer",
     type: "array",
-    content: "tooltip",
+    content: "Không chứa điền ký tự đặc biệt.",
   },
   {
     name: "composers",
     label: "Tên (các) Người soạn nhạc",
     type: "array",
-    content: "tooltip",
+    content: "Không chứa điền ký tự đặc biệt.",
   },
   {
     name: "lyricists",
     label: "Tên (các) Người viết lời",
     type: "array",
-    content: "tooltip",
+    content: "Không chứa điền ký tự đặc biệt.",
   },
 ];
 
@@ -103,43 +114,47 @@ const index = ({
       return (
         <div>
           <label className="form-label">{label}</label>
-          {values[name]?.map((item: any, index: number) => {
-            // console.log(`${name}[${index}].name`, "`${name}.[${index}].name`");
-
-            return (
-              <div
-                key={index}
-                className="d-flex justify-content-end align-item-end"
-              >
-                <div style={{ flex: 1 }}>
-                  <Field
-                    component={InputField}
-                    name={`${name}[${index}].name`}
-                  />
-                </div>
+          {values[name].length > 0 &&
+            values[name]?.map((item: any, index: number) => {
+              console.log("name: ", `${name}[${index}].name`);
+              return (
                 <div
-                  className="d-flex"
-                  style={{
-                    alignItems: "center",
-                    margin: 10,
-                    cursor: "pointer",
-                  }}
+                  key={index}
+                  className="d-flex justify-content-end align-item-end"
                 >
+                  <div style={{ flex: 1 }}>
+                    <Field
+                      component={InputField}
+                      name={`${name}[${index}].name`}
+                    />
+                  </div>
                   <div
-                    onClick={() => {
-                      if (values[name]?.length === 1) return;
-                      fieldFunction?.remove(index);
+                    className="d-flex"
+                    style={{
+                      alignItems: "center",
+                      margin: 10,
+                      cursor: "pointer",
                     }}
                   >
-                    X
+                    <div
+                      onClick={() => {
+                        if (values[name]?.length === 1) return;
+                        fieldFunction?.remove(index);
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faRemove}
+                        style={{ fontSize: 20, cursor: "pointer" }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+
           <button
             type="button"
-            className="btn btn-primary shadow mb-3 d-flex"
+            className="btn btn-primary mb-3 d-flex"
             style={{ gap: 5 }}
             onClick={() => {
               fieldFunction?.push({
@@ -165,7 +180,10 @@ const index = ({
       validateOnBlur={true}
       validateOnChange={true}
       validationSchema={validateTrack}
-      initialValues={{ ...initValues, title: isSingle ? defaultTitle : "" }}
+      initialValues={{
+        ...initValues,
+        title: isSingle ? defaultTitle : "",
+      }}
       onSubmit={(values: FormikValues) => {
         handleSaveDraft(values);
       }}
@@ -187,10 +205,11 @@ const index = ({
                 </Text>
               </Modal.Header>
               <Modal.Body>
-                {fieldArrays.map((item) => {
+                {fieldArrays.map((item, idx) => {
                   if (item.type === "select") {
                     return (
                       <Field
+                        key={idx}
                         contentTooltip={item.content}
                         component={Select}
                         options={version}
@@ -201,8 +220,10 @@ const index = ({
                   }
                   if (item.type === "array") {
                     return (
-                      <FieldArray name={item.name}>
-                        {(functions) =>
+                      <FieldArray
+                        key={idx}
+                        name={item.name}
+                        render={(functions) =>
                           renderAddingInput(
                             item.label,
                             values,
@@ -210,11 +231,12 @@ const index = ({
                             functions
                           )
                         }
-                      </FieldArray>
+                      />
                     );
                   }
                   return (
                     <Field
+                      key={idx}
                       contentTooltip={item.content}
                       component={InputField}
                       name={item.name}
@@ -263,7 +285,10 @@ const index = ({
                                     remove(index);
                                   }}
                                 >
-                                  X
+                                  <FontAwesomeIcon
+                                    icon={faRemove}
+                                    style={{ fontSize: 20, cursor: "pointer" }}
+                                  />
                                 </div>
                               </div>
                             </div>

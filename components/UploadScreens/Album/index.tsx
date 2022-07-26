@@ -110,8 +110,6 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
   };
 
   const uploadURL = async (values: FormikValues) => {
-    console.log("values: ", values);
-
     if (values.coverOption !== "0") {
       handleSubmit(values);
       return;
@@ -274,7 +272,9 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 options={optionFormat}
                 name="format"
                 label="Định dạng phát hành"
-                contentTooltip={""}
+                contentTooltip={`Tác phẩm là "Single" thì phần các "Tên Bản ghi" phải giống nhau và ít hơn 4 bản ghi trong 1 tác phẩm.\n
+                Tác phẩm là "EP" hoặc "Mini-Album" thì phải có tối thiểu 4 Bản ghi và tối đa 6 Bản ghi trong 1 tác phẩm.\n
+                Tác phẩm là "Album" thì tối thiểu là 7 Bản ghi trong 1 tác phẩm.`}
               />
               <Field
                 component={Select}
