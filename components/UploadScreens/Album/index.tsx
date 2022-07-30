@@ -17,11 +17,16 @@ import musicServices from "../../../services/musicServices";
 import styles from "./Album.module.scss";
 import { coverImages } from "constants/common";
 
+import _ from "lodash";
+
 import * as Yup from "yup";
 
 interface Props {
   nextStep: () => void;
   setIdAlbum: (id: string) => void;
+  initData?: any;
+  initGenres?: any;
+  isEdit?: boolean;
 }
 
 const initValues = {
@@ -59,17 +64,21 @@ const optionsCover = [
   },
 ];
 
-const index = ({ nextStep, setIdAlbum }: Props) => {
+const index = ({ nextStep, setIdAlbum, initData, initGenres }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [optionGenre, setOptionGenre] = useState([]);
   const { validateAlbum } = validationSchema();
   const refFormik = useRef<any>();
   const router = useRouter();
 
-  //! useEffect
+  console.log("initData: ", initData);
+  console.log("optionGenre: ", optionGenre);
+
+  !useEffect;
   useEffect(() => {
     const getListGenre = async () => {
       try {
+        setLoading(true);
         const response = await musicServices.getListGenre();
         if (response.status === 200 && response.data) {
           const data = response.data.map((item: any) => ({
@@ -78,11 +87,13 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
           }));
 
           setOptionGenre(data);
+          setLoading(false);
           return;
         }
         setOptionGenre([]);
       } catch (error) {
         setOptionGenre([]);
+        setLoading(false);
       }
     };
 
@@ -130,7 +141,9 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
     }
   };
 
-  const renderImage = (coverOption: string) => {
+  const renderImage = (coverOption: string, img_link: string) => {
+    console.log("img_link: ", img_link);
+
     if (!coverOption) return null;
 
     const style = { height: 400, width: 500 };
@@ -151,13 +164,16 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
       validateOnBlur={true}
       validateOnChange={true}
       validationSchema={validateAlbum}
-      initialValues={initValues}
+      initialValues={_.isEmpty(initData) ? initValues : initData}
       onSubmit={uploadURL}
     >
       {({ values, setFieldValue, touched, errors }) => {
         // useEffect(() => {
         //   console.log(errors, "errors");
         // }, [errors]);
+
+        console.log("initGenres: ", initGenres);
+
         return (
           <Form>
             <div className={styles.album}>
@@ -183,7 +199,9 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 }}
               />
 
-              <div className="my-3">{renderImage(values.coverOption)}</div>
+              <div className="my-3">
+                {renderImage(values.coverOption, values?.cover?.url)}
+              </div>
               <Field
                 component={InputField}
                 name="title"
@@ -197,8 +215,7 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                       Tên Nghệ sĩ/Nhóm hiển thị tại tác phẩm
                     </label>
                     {values.artists.length > 0 &&
-                      values.artists.map((artist, index) => {
-                        // console.log(values, "values");
+                      values.artists.map((artist: any, index: any) => {
                         return (
                           <div
                             key={index}
@@ -215,6 +232,7 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                                 isActiveSelect={
                                   values.artists.length - 1 === index
                                 }
+                                defaultValue={artist}
                               />
                             </div>
                             <div
@@ -272,16 +290,28 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 options={optionFormat}
                 name="format"
                 label="Định dạng phát hành"
+                value={optionFormat.find(
+                  (_: any) => _.value === values?.format
+                )}
                 contentTooltip={`Tác phẩm là "Single" thì phần các "Tên Bản ghi" phải giống nhau và ít hơn 4 bản ghi trong 1 tác phẩm.\n
                 Tác phẩm là "EP" hoặc "Mini-Album" thì phải có tối thiểu 4 Bản ghi và tối đa 6 Bản ghi trong 1 tác phẩm.\n
                 Tác phẩm là "Album" thì tối thiểu là 7 Bản ghi trong 1 tác phẩm.`}
               />
               <Field
                 component={Select}
-                options={optionGenre}
+                options={initGenres.length ? initGenres : optionGenre}
                 name="genre_id"
                 label="	Thể loại"
                 contentTooltip={""}
+                // value={{
+                //   label: "aaa",
+                //   value: "2703f5ac-fce2-4d1d-8d77-9b2dc76f299f",
+                // }}
+                value={
+                  initGenres.length
+                    ? initGenres.find((_: any) => _.value === values?.genre?.id)
+                    : {}
+                }
               />
               <Field
                 component={Select}
@@ -289,6 +319,9 @@ const index = ({ nextStep, setIdAlbum }: Props) => {
                 name="distribution_platform"
                 label="Nhóm nền tảng phân phối"
                 contentTooltip={""}
+                value={optionPlatform.find(
+                  (_: any) => _.value === values?.distribution_platform
+                )}
               />
               <Field
                 component={InputField}

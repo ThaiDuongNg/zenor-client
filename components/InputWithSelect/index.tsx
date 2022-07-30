@@ -26,6 +26,7 @@ interface Props {
   onChangeName?: () => void;
   onBlur?: () => void;
   form?: FormikHelpers<any> & FormikState<any>;
+  defaultValue: any;
 }
 //"and", "with", "feat.", "ft.", "pres.", "vs", "x", "&"
 const InputArtist = ({
@@ -41,6 +42,7 @@ const InputArtist = ({
   selectName,
   index,
   arrrayName,
+  defaultValue,
   ...props
 }: Props) => {
   const nameField = name || field?.name;
@@ -67,7 +69,7 @@ const InputArtist = ({
             "is-invalid"
           }`}
           id={nameField}
-          // defaultValue={field.value}
+          defaultValue={defaultValue.name}
           // value={field.value}
           placeholder={placeholder}
           onChange={nameOnchange}
@@ -82,7 +84,9 @@ const InputArtist = ({
             // }`}
             // styles
             isSearchable={false}
-            defaultValue={!isActiveSelect ? options[0].value : ""}
+            defaultValue={options.find(
+              (_: any) => _.value === defaultValue.link
+            )}
             placeholder={""}
             isDisabled={isActiveSelect}
             onChange={(event) => {

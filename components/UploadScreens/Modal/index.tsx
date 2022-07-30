@@ -105,6 +105,7 @@ const index = ({
   version,
   isSingle,
   defaultTitle,
+  setVisible,
 }: Props) => {
   const refFormik = useRef(null);
   const { validateTrack } = validationSchema();
@@ -116,7 +117,6 @@ const index = ({
           <label className="form-label">{label}</label>
           {values[name].length > 0 &&
             values[name]?.map((item: any, index: number) => {
-              console.log("name: ", `${name}[${index}].name`);
               return (
                 <div
                   key={index}
@@ -261,8 +261,8 @@ const index = ({
                               <div style={{ flex: 1 }}>
                                 <Field
                                   component={InputArtist}
-                                  name={`artists.[${index}].name`}
-                                  selectName={`artists.${index}.link`}
+                                  name={`artists[${index}].name`}
+                                  selectName={`artists[${index}].link`}
                                   label="Tên Nghệ sĩ/Nhóm hiển thị tại tác phẩm"
                                   arrrayName="artists"
                                   index={index}
@@ -323,7 +323,10 @@ const index = ({
                   auto
                   flat
                   color="error"
-                  onClick={() => bindings.onClose()}
+                  onClick={() => {
+                    bindings.onClose();
+                    setVisible(false);
+                  }}
                 >
                   Đóng
                 </Button>

@@ -21,7 +21,7 @@ const headerFields = [
   "Số Catalogue (CAT No.)",
   "Thông báo",
   "Trạng thái",
-  "Xem thêm",
+  "Chi tiết",
   "Thao tác",
 ];
 
@@ -125,7 +125,7 @@ const index = () => {
   return (
     <DefaultLayout title="Bảng điều khiển">
       <>
-        <div className={styles.dashboard}>
+        <div className="container">
           <div className={styles.track_header + " my-3"}>
             <h1>Bảng điều khiển</h1>
           </div>

@@ -8,7 +8,7 @@ interface Props {
 }
 
 function index(props: Props) {
-  const { refFormik, nameField, defaultValue = 1 } = props;
+  const { refFormik, nameField, defaultValue } = props;
 
   return (
     <Radio.Group

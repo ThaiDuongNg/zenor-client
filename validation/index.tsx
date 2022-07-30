@@ -69,7 +69,7 @@ export const validationSchema = () => {
     version_id: stringRequired,
     download_link: stringRequired,
     artists: Yup.array().of(
-      Yup.object({
+      Yup.object().shape({
         name: stringRequired,
       })
     ),
@@ -95,7 +95,7 @@ export const validationSchema = () => {
     ),
   });
 
-  const validateAlbum = Yup.object().shape({
+  const validateAlbum = Yup.object({
     title: specialCharIgnore,
     artists: Yup.array().of(
       Yup.object().shape({

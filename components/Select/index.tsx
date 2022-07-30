@@ -12,6 +12,7 @@ interface Props {
   onChange?: (item: any) => void;
   field?: any;
   form?: FormikHelpers<any> & FormikState<any>;
+  value?: any;
 }
 
 const index = ({
@@ -23,6 +24,7 @@ const index = ({
   onChange,
   label,
   contentTooltip,
+  value,
 }: Props) => {
   const nameField = name || field?.name;
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -45,6 +47,9 @@ const index = ({
     contentTooltip && setIsShow(true);
   };
 
+  console.log("value1111: ", { options, value });
+  // console.log("options: ", options);
+
   return (
     <div className="mb-2">
       <label htmlFor={nameField} className="form-label">
@@ -58,7 +63,7 @@ const index = ({
             touched?.[nameField] && errors?.[nameField] && "is-invalid"
           }`}
           placeholder={placeholder}
-          // defaultValue={values?.[nameField]}
+          defaultValue={value}
           onChange={inputOnChange}
           options={options}
         />
